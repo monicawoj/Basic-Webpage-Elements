@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
         //clear input
         taskInput.value = '';
 
-
     });
 
     //remove all finished tasks upon clicking 'Remove finsihed tasks'
@@ -52,26 +51,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 taskText.style.textDecoration = 'line-through';
                 taskText.style.color = 'grey';
                 this.parentElement.classList.add('done');
-                count -= 1;
-                counter.innerText = count;
+                subtractCount();
             } else {
                 taskText.style.textDecoration = 'none';
                 taskText.style.color = 'initial';
                 this.parentElement.classList.remove('done');
-                count += 1;
-                counter.innerText = count;
+                addCount();
             }
         });
 
         //remove list item on click of 'Delete' button
         newTaskButtonDelete.addEventListener('click',function(event) {
             this.parentElement.parentElement.removeChild(this.parentElement);
-            count -= 1;
-            counter.innerText = count;
+            subtractCount();
         });
 
-        count += 1;
-        counter.innerText = count;
+        addCount();
 
         return newTask;
     }
@@ -82,6 +77,16 @@ document.addEventListener('DOMContentLoaded', function() {
                element.parentElement.removeChild(element);
            }
         });
+    }
+
+    function addCount() {
+        count += 1;
+        counter.innerText = count;
+    }
+
+    function subtractCount() {
+        count -= 1;
+        counter.innerText = count;
     }
 });
 
