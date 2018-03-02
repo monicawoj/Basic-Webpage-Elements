@@ -5,10 +5,21 @@ document.addEventListener('DOMContentLoaded', function() {
     var removeFinishedTasksButton = document.querySelector('#removeFinishedTasksButton');
     var taskList = document.querySelector('#taskList');
     var listItems = taskList.children;
+    var counter = document.querySelector('#counter');
+    var count = 0;
 
     //add new task to list
     addTaskButton.addEventListener('click', function(event) {
-        taskList.appendChild(createNewTask(taskInput));
+
+        //check if input is not too short or too long
+        if (taskInput.value.length >= 5 && taskInput.value.length <= 100) {
+            taskList.appendChild(createNewTask(taskInput));
+        }
+
+        //clear input
+        taskInput.value = '';
+
+
     });
 
     //remove all finished tasks upon clicking 'Remove finsihed tasks'
@@ -34,16 +45,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
         //cross out complete tasks on click of 'Complete' button
         newTaskButtonComplete.addEventListener('click',function(event) {
+
+            //if it is not completed
             var taskText = this.parentElement.querySelector('h1');
-            taskText.style.textDecoration = 'line-through';
-            taskText.style.color = 'grey';
-            this.parentElement.classList.add('done');
+            if (this.parentElement.className.indexOf('done') == -1) {
+                taskText.style.textDecoration = 'line-through';
+                taskText.style.color = 'grey';
+                this.parentElement.classList.add('done');
+                count -= 1;
+                counter.innerText = count;
+            } else {
+                taskText.style.textDecoration = 'none';
+                taskText.style.color = 'initial';
+                this.parentElement.classList.remove('done');
+                count += 1;
+                counter.innerText = count;
+            }
         });
 
         //remove list item on click of 'Delete' button
         newTaskButtonDelete.addEventListener('click',function(event) {
             this.parentElement.parentElement.removeChild(this.parentElement);
+            count -= 1;
+            counter.innerText = count;
         });
+
+        count += 1;
+        counter.innerText = count;
 
         return newTask;
     }
