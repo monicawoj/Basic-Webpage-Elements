@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     [...mainListItems].forEach(function(element) {
         element.addEventListener('mouseover', function(event) {
-            var subList = this.querySelector('ul');
+            var listPanel = this.querySelector('ul');
             if (subList) {
                     subList.style.display = 'block';
             }
